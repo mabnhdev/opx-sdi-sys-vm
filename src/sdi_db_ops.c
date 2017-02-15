@@ -39,6 +39,7 @@
 #include "std_utils.h"
 
 static int semid;
+static const int SDI_DB_MAX_DIR_SIZE = 256;
 
 /* Extern semaphore functions to expose library functionality
  * to serialize DB accesses.
@@ -124,6 +125,8 @@ static t_std_error sdi_db_sql_set_attribute(db_sql_handle_t db_handle,
  */
 void sdi_db_construct_path(char *buffer, const char *file)
 {
+    char str[SDI_DB_MAX_DIR_SIZE];
+
     if (file[0] == '/') {
         /* Given file is absolute path => Use directly */
 
@@ -133,7 +136,9 @@ void sdi_db_construct_path(char *buffer, const char *file)
 
     char *base_dir = getenv(SDI_DB_BASE_ENV);
     if (base_dir == NULL) {
-        base_dir = SDI_DB_BASE_DEFAULT;
+        snprintf(str, SDI_DB_MAX_DIR_SIZE, "%s%s", (getenv("OPX_DATA_PATH") ? getenv("OPX_DATA_PATH") : ""), 
+            SDI_DB_BASE_DEFAULT);
+        base_dir = str;
     }
 
     snprintf(buffer, NAME_MAX, "%s/%s", base_dir, file);
