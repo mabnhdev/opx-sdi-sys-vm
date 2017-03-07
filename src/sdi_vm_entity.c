@@ -403,7 +403,8 @@ t_std_error sdi_entity_info_read(sdi_resource_hdl_t res_hdl, sdi_entity_info_t *
     sdi_db_get_entity_type(sdi_get_db_handle(), res_hdl, &entity_type);
 
     if(entity_type == SDI_ENTITY_SYSTEM_BOARD) {
-        if(NULL != (fptr=fopen("/sys/class/net/eth0/address", "r"))) {      
+      if((NULL != (fptr=fopen("/sys/class/net/eth0/address", "r"))) ||
+         (NULL != (fptr=fopen("/sys/class/net/enp0s3/address", "r")))){
 
             if (fgets(c, sizeof(c), fptr) == NULL) {
                 return STD_ERR(BOARD, PARAM, EINVAL);
