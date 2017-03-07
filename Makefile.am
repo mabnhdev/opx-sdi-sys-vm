@@ -3,7 +3,9 @@ ACLOCAL_AMFLAGS=-I m4
 SUBDIRS = inc
 
 data_sdidir= $(sysconfdir)/opx/sdi
-data_sdi_DATA = cfg/sdi/*.sql 
+data_sdi_DATA = cfg/sdi/*.sql
+data_rulesdir= $(sysconfdir)/opx/rules
+data_rules_DATA= cfg/rules/*
 
 #The sdi-sys library
 lib_LTLIBRARIES = libopx_sdi_db.la

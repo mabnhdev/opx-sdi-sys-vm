@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+rm -f /etc/udev/rules.d/80-dn-virt-intf.rules
+
